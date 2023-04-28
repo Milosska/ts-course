@@ -9,8 +9,7 @@ let empty: null;
 empty = null;
 let notInitialize: undefined;
 notInitialize = undefined;
-let callback: Function;
-callback = (a: number) => {
+let callback = (a: number): number => {
   return 100 + a;
 };
 
@@ -37,6 +36,17 @@ person = ["Max", 21];
 enum Pending {
   LOADING,
   READY,
+}
+
+const page = {
+  load: Pending.READY,
+};
+
+if (page.load === Pending.LOADING) {
+  console.log("Сторінка завантажується");
+}
+if (page.load === Pending.READY) {
+  console.log("Сторінка завантажена");
 }
 
 // Task 6

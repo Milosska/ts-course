@@ -1,51 +1,51 @@
-class Key {
-  private signature: number;
-  constructor() {
-    this.signature = Math.floor(Math.random() * 11);
-  }
-
-  getSignature(): number {
-    return this.signature;
-  }
+// Task 1
+function getPromise(): Promise<Array<string | number>> {
+  return new Promise((resolve) => {
+    resolve(["Text", 50]);
+  });
 }
 
-class Person {
-  constructor(private key: Key) {}
+getPromise().then((data) => {
+  console.log(data);
+});
 
-  getKey(): Key {
-    return this.key;
-  }
+// Task 2
+type AllType = {
+  name: string;
+  position: number;
+  color: string;
+  weight: number;
+};
+
+function compare(
+  top: Pick<AllType, "name" | "color">,
+  bottom: Pick<AllType, "position" | "weight">
+): AllType {
+  return {
+    name: top.name,
+    color: top.color,
+    position: bottom.position,
+    weight: bottom.weight,
+  };
 }
 
-abstract class House {
-  protected door = false;
-  private tenants: Person[] = [];
-
-  constructor(protected key: Key) {}
-
-  comeIn(person: Person): void {
-    if (!this.door) {
-      throw new Error("The door is closed!");
-    }
-    this.tenants.push(person);
-    console.log("Person inside");
-  }
-  abstract openDoor(a: Key): boolean;
+// Task 3
+function merge<T extends {}, U extends {}>(objA: T, objB: U) {
+  return Object.assign(objA, objB);
 }
 
-class MyHouse extends House {
-  openDoor(key: Key) {
-    if (key.getSignature() !== this.key.getSignature()) {
-      throw new Error("Key to another door");
-    }
+// Task 4
 
-    return (this.door = true);
-  }
+interface IProps {
+  title: string;
 }
 
-let key1 = new Key();
-let stoneHouse = new MyHouse(key1);
-let person = new Person(key1);
+class Component<T> {
+  constructor(public props: T) {}
+}
 
-stoneHouse.openDoor(person.getKey());
-stoneHouse.comeIn(person);
+class Page extends Component<IProps> {
+  pageInfo() {
+    console.log(this.props.title);
+  }
+}
